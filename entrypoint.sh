@@ -4,7 +4,7 @@
 if [ -f "/etc/ssh/sshd_config" ]; then
     sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/^PasswordAuthentication\s+.*/PasswordAuthentication no/' /etc/ssh/sshd_config \
-    && sed -ri 's/^HostKey\s+.*//' /etc/ssh/sshd_config
+    && sed -ri 's/^HostKey\s+.*//g' /etc/ssh/sshd_config
 fi
 
 # prepare run dir
