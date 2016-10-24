@@ -1,0 +1,18 @@
+FROM alpine:latest
+MAINTAINER playniuniu <playniuniu@gmail.com>
+
+ENV PACKAGE_BASE openssh sshpass ansible
+ENV PACKAGE_DEP py-pip
+
+VOLUME /data
+
+RUN apk add --update --no-cache $PACKAGE_BASE $PACKAGE_DEP \
+    && pip install pywinrm \
+    && apk del $PACKAGE_DEP \
+    && rm -rf /var/cache/apk/*
+
+COPY entrypoint.sh /usr/sbin
+EXPOSE 22
+
+ENTRYPOINT ["/usr/sbin/entrypoint.sh"]
+CMD ["/usr/sbin/sshd","-D"]
