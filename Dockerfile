@@ -2,7 +2,7 @@ FROM alpine:latest
 MAINTAINER playniuniu < playniuniu@gmail.com >
 
 ENV BUILD_DEP build-base python-dev py-virtualenv libffi-dev openssl-dev
-ENV PACKAGE_BASE python sshpass
+ENV PACKAGE_BASE python sshpass openssh-client
 
 VOLUME /data
 
