@@ -2,7 +2,9 @@ FROM alpine:latest
 MAINTAINER playniuniu < playniuniu@gmail.com >
 
 ENV BUILD_DEP build-base python-dev py-virtualenv libffi-dev openssl-dev
-ENV PACKAGE_BASE python openssh sshpass
+ENV PACKAGE_BASE python sshpass
+
+VOLUME /data
 
 WORKDIR /usr/src/app/
 
@@ -13,10 +15,7 @@ RUN apk add --update --no-cache $PACKAGE_BASE $BUILD_DEP \
     && apk del $BUILD_DEP \
     && rm -rf /var/cache/apk/*
 
-VOLUME /data
 COPY entrypoint.sh /usr/sbin
 
-EXPOSE 22
-
 ENTRYPOINT ["/usr/sbin/entrypoint.sh"]
-CMD ["/usr/sbin/sshd","-D"]
+CMD ["ansible","all", "-m", "ping"]
